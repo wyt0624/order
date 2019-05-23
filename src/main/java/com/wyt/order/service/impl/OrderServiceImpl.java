@@ -31,12 +31,13 @@ public class OrderServiceImpl implements OrderService {
 
         //订单入库
         OrderMaster orderMaster = new OrderMaster();
+        orderDTO.setOrderId(KeyUtil.genUniqueKey());
         BeanUtils.copyProperties(orderDTO, orderMaster);
         orderMaster.setOrderAmount(new BigDecimal(20));
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
-        orderMaster.setOrderId(KeyUtil.genUniqueKey());
+
         orderMasterRepository.save(orderMaster);
-        return null;
+        return orderDTO;
     }
 }
